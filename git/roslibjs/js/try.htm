@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>slider demo</title>
+ 
+  <style>#sta{ margin: 10px  }	</style>
+  <style>#hue{ margin: 10px; }	</style>
+   <style>#value{ margin: 10px; }	</style>
+  
+  <script src="js/jquery-3.2.0.min.js"></script>
+ 
+</head>
+<body>
+ <div id="title1"></div>
+ 
+ <div id="hue"></div>
+ <div id="title2"></div>
+<div id="sta"></div>
+ <div id="title3"></div>
+ <div id="value"></div>
+<script>
+$("#title1").text("hue").width(1);
+$("#title2").text("saturation").width(1);
+$("#title3").text("value").width(1);
+
+$( "#sta" ).slider({
+max: 255
+});
+
+$( "#sta" ).slider({
+min: 0
+});
+$( "#sta" ).slider({
+range: true
+});
+$( "#value" ).slider({
+max: 255
+});
+
+$( "#value" ).slider({
+min: 0
+});
+$( "#value" ).slider({
+range: true
+});
+
+
+
+$( "#hue" ).slider({
+max: 180
+});
+
+$( "#hue" ).slider({
+min: 0
+});
+$( "#hue" ).slider({
+range: true
+});
+ values1 = $( "#hue" ).slider( "option", "values" );
+console.log(values1);
+ values2 = $( "#sta" ).slider( "option", "values" );
+ 
+console.log(values2);
+ values3 = $( "#value" ).slider( "option", "values" );
+ 
+console.log(values3);
+</script>
+ 
+</body>
+</html>

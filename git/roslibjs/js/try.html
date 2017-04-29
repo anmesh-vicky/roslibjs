@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>slider </title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <style>#sta{ margin: 10px  }	</style>
+  <style>#hue{ margin: 10px; }	</style>
+   <style>#value{ margin: 10px; }	</style>
+  
+
+<script type="text/javascript" src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+<script type="text/javascript" src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+
+<script type="text/javascript" type="text/javascript">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+ <div id="title1"></div>
+ 
+ <div id="hue"></div>
+ <div id="title2"></div>
+<div id="sta"></div>
+ <div id="title3"></div>
+ <div id="value"></div>
+<script>
+$("#title1").text("hue").width(1);
+$("#title2").text("saturation").width(1);
+$("#title3").text("value").width(1);
+
+$( "#sta" ).slider({
+max: 255
+});
+
+$( "#sta" ).slider({
+min: 0
+});
+$( "#sta" ).slider({
+range: true
+});
+$( "#value" ).slider({
+max: 255
+});
+
+$( "#value" ).slider({
+min: 0
+});
+$( "#value" ).slider({
+range: true
+});
+
+var values = new Array();
+
+$( "#hue" ).slider({
+max: 180
+});
+
+$( "#hue" ).slider({
+min: 0
+});
+$( "#hue" ).slider({
+range: true
+});
+values[0] = $( "#hue" ).slider( "option", "values" );
+console.log(values[0]);
+ values[1] = $( "#sta" ).slider( "option", "values" );
+ 
+console.log(values[1]);
+values[2] = $( "#value" ).slider( "option", "values" );
+ 
+console.log(values[2]);
+
+</script>
+ <script>
+ var ros = new ROSLIB.Ros({
+    url : 'ws://localhost:9090'
+  });
+
+  ros.on('connection', function() {
+    console.log('Connected to websocket server.');
+  });
+
+  ros.on('error', function(error) {
+    console.log('Error connecting to websocket server: ', error);
+  });
+
+  ros.on('close', function() {
+    console.log('Connection to websocket server closed.');
+  });
+
+  // Publishing a Topic
+  // ------------------
+
+  var cmdVel = new ROSLIB.Topic({
+    ros : ros,
+    name : 'hsv_value',
+    messageType : 'std_msgs/Int32.h'
+  });
+
+  
+  hsv_value.publish(values[0]);
+  hsv_value.publish(values[1]);
+  hsv_value.publish(values[2]);
+
+  // Subscribing to a Topic
+  // ----------------------
+
+  var listener = new ROSLIB.Topic({
+    ros : ros,
+    name : '/listener',
+    messageType : 'std_msgs/String'
+  });
+
+  listener.subscribe(function(message) {
+    console.log('Received message on ' + listener.name + ': ' + message.data);
+    listener.unsubscribe();
+  });
+
+ 
+
+ 
+</script>
+</body>

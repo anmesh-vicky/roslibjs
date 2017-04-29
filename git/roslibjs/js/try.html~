@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>slider </title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <style>#sta{ margin: 10px  }	</style>
+  <style>#hue{ margin: 10px; }	</style>
+   <style>#value{ margin: 10px; }	</style>
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+ <div id="title1"></div>
+ 
+ <div id="hue"></div>
+ <div id="title2"></div>
+<div id="sta"></div>
+ <div id="title3"></div>
+ <div id="value"></div>
+<script>
+$("#title1").text("hue").width(1);
+$("#title2").text("saturation").width(1);
+$("#title3").text("value").width(1);
+
+$( "#sta" ).slider({
+max: 255
+});
+
+$( "#sta" ).slider({
+min: 0
+});
+$( "#sta" ).slider({
+range: true
+});
+$( "#value" ).slider({
+max: 255
+});
+
+$( "#value" ).slider({
+min: 0
+});
+$( "#value" ).slider({
+range: true
+});
+
+var values = new Array();
+
+$( "#hue" ).slider({
+max: 180
+});
+
+$( "#hue" ).slider({
+min: 0
+});
+$( "#hue" ).slider({
+range: true
+});
+values[0] = $( "#hue" ).slider( "option", "values" );
+console.log(values[0]);
+ values[1] = $( "#sta" ).slider( "option", "values" );
+ 
+console.log(values[1]);
+values[2] = $( "#value" ).slider( "option", "values" );
+ 
+console.log(values[2]);
+
+</script>
+ 
+</body>
